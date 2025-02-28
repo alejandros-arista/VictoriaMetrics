@@ -18,8 +18,7 @@ See also [LTS releases](https://docs.victoriametrics.com/lts-releases/).
 
 ## tip
 
-* SECURITY: upgrade Go builder from Go1.23.6 to Go1.24. See the list of issues addressed in [Go1.24](https://github.com/golang/go/issues?q=milestone%3AGo1.24).
-
+* FEATURE: upgrade Go builder from Go1.23.6 to Go1.24. See [Go1.24 release notes](https://tip.golang.org/doc/go1.24).
 * FEATURE: [alerts](https://github.com/VictoriaMetrics/VictoriaMetrics/blob/master/deployment/docker/rules/alerts-vmalert.yml): add alerting rule `TooHighQueryLoad` to notify user when VictoriaMetrics or vmselect weren't able to serve requests in timely manner during last 15min.
 * FEATURE: [dashboards/single](https://grafana.com/grafana/dashboards/10229) and [dashboards/cluster](https://grafana.com/grafana/dashboards/11176): add panel `Deduplication rate` that shows how many samples are [deduplicated](https://docs.victoriametrics.com/#deduplication) during merges or read queries by VictoriaMetrics components.
 * FEATURE: [dashboards/single](https://grafana.com/grafana/dashboards/10229) and [dashboards/cluster](https://grafana.com/grafana/dashboards/11176): add panel `Number of snapshots` that shows the max number of [snapshots](https://docs.victoriametrics.com/#how-to-work-with-snapshots) across vmstorage nodes. This panel should help in disk usage [troubleshooting](https://docs.victoriametrics.com/#snapshot-troubleshooting).
@@ -57,6 +56,7 @@ Released at 2025-02-21
 * BUGFIX: [vmalert](https://docs.victoriametrics.com/vmalert/): fix polluted alert messages when multiple Alertmanager instances are configured with `alert_relabel_configs`. See [this issue](https://github.com/VictoriaMetrics/VictoriaMetrics/issues/8040), and thanks to @evkuzin for [the pull request](https://github.com/VictoriaMetrics/VictoriaMetrics/pull/8258).
 * BUGFIX: [vmalert](https://docs.victoriametrics.com/vmalert/): fix the auto-generated metrics for alerts and groups. Previously, metrics might be missing after reload. See [this issue](https://github.com/VictoriaMetrics/VictoriaMetrics/issues/8229) for the details.
 * BUGFIX: `vminsert` in [VictoriaMetrics cluster](https://docs.victoriametrics.com/cluster-victoriametrics/) and `vmstorage` in [VictoriaMetrics cluster](https://docs.victoriametrics.com/cluster-victoriametrics/): properly return parsing errors during data ingestion in [multi-level cluster setup](https://docs.victoriametrics.com/cluster-victoriametrics/#multi-level-cluster-setup). Before, some of the errors could have been silently ignored.
+* BUGFIX: [vmsingle](https://docs.victoriametrics.com/single-server-victoriametrics/),  `vmselect` in [VictoriaMetrics cluster](https://docs.victoriametrics.com/cluster-victoriametrics/): fix negative rate result when the lookbehind window is longer than `-search.maxLookback` or `-search.maxStalenessInterval` and data contains gap. See [this issue](https://github.com/VictoriaMetrics/VictoriaMetrics/issues/8342).
 * BUGFIX: [Single-node VictoriaMetrics](https://docs.victoriametrics.com/) and [vmselect](https://docs.victoriametrics.com/cluster-victoriametrics/): properly enforce presence of default `-retentionPeriod` configuration for [retention filters](https://docs.victoriametrics.com/#retention-filters) debug interface. See [this issue](https://github.com/VictoriaMetrics/VictoriaMetrics/issues/8343).
 
 ## [v1.110.2](https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.110.2)
